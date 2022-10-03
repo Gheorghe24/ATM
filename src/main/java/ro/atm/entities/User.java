@@ -1,6 +1,7 @@
 package ro.atm.entities;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 
@@ -11,7 +12,6 @@ import java.util.List;
 @Getter
 public class User {
     private final String username;
-    private final String id;
     private final String dateOfBirth;
     private String pin;
 
@@ -19,28 +19,32 @@ public class User {
     public List<Account> accounts = new ArrayList<>();
 
 
-    public User(String username, String dateOfBirth, String pin, String id) {
+    public User(String username, String dateOfBirth, String pin) {
         this.username = username;
         this.dateOfBirth = dateOfBirth;
         this.pin = pin;
-        this.id = id;
     }
 
-    public User(String username, String dateOfBirth, String pin, List<Account> accounts, String id) {
+    public User(String username, String dateOfBirth, String pin, List<Account> accounts) {
         this.username = username;
         this.dateOfBirth = dateOfBirth;
         this.pin = pin;
         this.accounts = accounts;
-        this.id = id;
-    }
-
-    public boolean isLoggedIn() {
-        return loggedIn;
     }
 
     public void changePin(@NotNull String oldPin, String newPin) {
-        if(oldPin.equals(getPin()))
-        this.pin = newPin;
+        if(oldPin.equals(getPin())) {
+            this.pin = newPin;
+        }
+    }
+
+    public void showInformationsForEachAccount(){
+        for (Account account: accounts) {
+            System.out.println(account);
+        }
+        for (int i = 0; i < accounts.size(); i++) {
+            System.out.println("Account " + i + " " + accounts.get(i));
+        }
     }
 
 }

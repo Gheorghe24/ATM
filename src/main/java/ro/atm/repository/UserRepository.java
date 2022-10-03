@@ -1,6 +1,5 @@
 package ro.atm.repository;
 
-import org.jetbrains.annotations.NotNull;
 import ro.atm.entities.Account;
 import ro.atm.entities.AccountCurrency;
 import ro.atm.entities.User;
@@ -21,17 +20,30 @@ public class UserRepository {
         List<Account> list1 = Arrays.asList(account1, account2);
         List<Account> list2 = Arrays.asList(account3, account4);
         List<Account> list3 = Arrays.asList(account1, account3);
-        users.add(new User("Nicu", "23.11.01", "1234", list1, "111"));
-        users.add(new User("Gicu", "23.01.01", "8888", list2, "123"));
-        users.add(new User("Bogdan", "23.01.01", "2204", list3, "122"));
+        users.add(new User("Nicu", "23.11.01", "1234", list1));
+        users.add(new User("Gicu", "23.01.01", "8888", list2));
+        users.add(new User("Bogdan", "23.01.01", "2204", list3));
     }
 
-    public User findUserByNameAndPin(String name, String pin){
+    public User findUserByUsernameAndPin(String name, String pin){
         for (User u: users) {
             if(u.getUsername().equalsIgnoreCase(name) && u.getPin().equals(pin)) {
                 return u;
             }
         }
         return null;
+    }
+
+    public User findUserByUsername(String name){
+        for (User u: users) {
+            if(u.getUsername().equalsIgnoreCase(name)) {
+                return u;
+            }
+        }
+        return null;
+    }
+
+    public void addUserToDatabase(User user) {
+        users.add(user);
     }
 }

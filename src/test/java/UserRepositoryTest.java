@@ -1,51 +1,64 @@
-import org.junit.Test;
-import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import ro.atm.entities.Account;
+import ro.atm.entities.AccountCurrency;
 import ro.atm.entities.User;
 import ro.atm.repository.UserRepository;
+import ro.atm.utils.Utils;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class UserRepositoryTest {
 
+    UserRepository userRepository = new UserRepository();
+    @BeforeEach
+    public void setup(){
+        userRepository.createDatabase();
+    }
     @Test
     public void userSuccesfullyFound(){
-        UserRepository userRepository = new UserRepository();
-        userRepository.createDatabase();
-        User user = userRepository.findUserByNameAndPin("Nicu","1234");
+        User user = userRepository.findUserByUsernameAndPin("Nicu","1234");
         assertEquals(user.getPin(),"1234" );
         assertEquals(user.getUsername(),"Nicu" );
     }
 
     @Test
     public void userWithWrongNameReturnsNull(){
-        UserRepository userRepository = new UserRepository();
-        userRepository.createDatabase();
-        User user = userRepository.findUserByNameAndPin("Nicuu","1234");
+        User user = userRepository.findUserByUsernameAndPin("Nicuu","1234");
         assertNull(user);
     }
 
     @Test
     public void userWithSmallNameReturnsUser(){
-        UserRepository userRepository = new UserRepository();
-        userRepository.createDatabase();
-        User user = userRepository.findUserByNameAndPin("nicu","1234");
+        User user = userRepository.findUserByUsernameAndPin("nicu","1234");
         assertEquals(user.getUsername(),"Nicu" );
     }
 
     @Test
     public void userWithWrongPinReturnsNull(){
-        UserRepository userRepository = new UserRepository();
-        userRepository.createDatabase();
-        User user = userRepository.findUserByNameAndPin("Nicu","1222");
+        User user = userRepository.findUserByUsernameAndPin("Nicu","1222");
         assertNull(user);
     }
 
     @Test
     public void userWithWrongPinAndNameReturnsNull(){
-        UserRepository userRepository = new UserRepository();
-        userRepository.createDatabase();
-        User user = userRepository.findUserByNameAndPin("Niceeu","12234");
+        User user = userRepository.findUserByUsernameAndPin("Niceeu","12234");
         assertNull(user);
     }
+
+    @Test
+    public void checkUserInDatabase(){
+        Account account = new Account(100, AccountCurrency.valueOf("USD"), Utils.getRandomNumber(8));
+        List<Account> list = new ArrayList<>(Arrays.asList(account));
+        User user = new User("Gheorghe", "01.01.01", "1111", list);
+        userRepository.addUserToDatabase(user);
+
+        assertEquals(user,userRepository.findUserByUsernameAndPin("Gheorghe", "1111"));
+    }
+
+
 }
