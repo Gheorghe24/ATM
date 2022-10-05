@@ -7,7 +7,7 @@ import ro.atm.utils.Utils;
 @Setter
 @Getter
 public class Account {
-    private int balance; //sold
+    private int balance;
     private final AccountCurrency currency;
     private final String accountNumber;
 
@@ -32,12 +32,12 @@ public class Account {
     public void showAccountDetails() {
         System.out.println("*******ACCOUNT DETAILS*******");
         System.out.println("Your account number: " + this.getAccountNumber());
-        System.out.println("Your balance: 1000" + this.getBalance() + this.currency.name());
+        System.out.println("Your balance: " + this.getBalance() + " " + this.currency.name());
     }
 
     public void checkBalance() {
         System.out.println("Current Time: " + Utils.getTime());
-        System.out.println("Your balance: " + this.getBalance());
+        System.out.println("Your balance: " + this.getBalance() + " " + this.currency.name());
     }
 
     @Override

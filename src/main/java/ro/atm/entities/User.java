@@ -1,11 +1,9 @@
 package ro.atm.entities;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Setter
@@ -16,14 +14,8 @@ public class User {
     private String pin;
 
     private boolean loggedIn = false;
-    public List<Account> accounts = new ArrayList<>();
+    public List<Account> accounts;
 
-
-    public User(String username, String dateOfBirth, String pin) {
-        this.username = username;
-        this.dateOfBirth = dateOfBirth;
-        this.pin = pin;
-    }
 
     public User(String username, String dateOfBirth, String pin, List<Account> accounts) {
         this.username = username;
@@ -39,11 +31,9 @@ public class User {
     }
 
     public void showInformationsForEachAccount(){
-        for (Account account: accounts) {
-            System.out.println(account);
-        }
+        System.out.println("\nList of your accounts");
         for (int i = 0; i < accounts.size(); i++) {
-            System.out.println("Account " + i + " " + accounts.get(i));
+            System.out.println("Account " + i + ") " + accounts.get(i) + "\n");
         }
     }
 
