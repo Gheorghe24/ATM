@@ -31,7 +31,7 @@ public class User {
     }
 
     public void showInformationsForEachAccount(){
-        System.out.println("Informations for your account");
+        System.out.println("\nList of your accounts");
         for (int i = 0; i < accounts.size(); i++) {
             System.out.println("Account " + i + ") " + accounts.get(i) + "\n");
         }

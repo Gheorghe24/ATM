@@ -32,9 +32,11 @@ public class Main {
             userOption = menuService.readUserInput(scanner);
         }
 
-        if (user == null) {
+        if (user == null && !user.isLoggedIn()) {
+            System.out.println("Sorry, user not found or not logged in");
             return;
         }
+
         user.showInformationsForEachAccount();
         System.out.print("Choose one of the accounts above:");
         userOption = menuService.readUserInput(scanner);
@@ -42,7 +44,7 @@ public class Main {
 
         menuService.showOptionsAfterLogin();
 
-        Account chosenAccount = user.getAccounts().get(userOptionDigit);;
+        Account chosenAccount = user.getAccounts().get(userOptionDigit);
 
         System.out.print("Choose one of the options above:");
         userOption = menuService.readUserInput(scanner);
